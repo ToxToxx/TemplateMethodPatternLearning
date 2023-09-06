@@ -10,78 +10,95 @@ namespace TemplateMethodPatternLearning
     {
         static void Main(string[] args)
         {
-            WarriorTraining warriorTraining = new WarriorTraining();
-            MageTraining mageTraining = new MageTraining();
+            OrcsAI orcsAI = new OrcsAI();
+            MonstersAI monstersAI = new MonstersAI();
 
-            warriorTraining.Learn();
+            orcsAI.TakeTurn();
             Console.WriteLine();
-            mageTraining.Learn();
+            monstersAI.TakeTurn();
 
             Console.Read();
         }
     }
 
     //abstract class
-    abstract class Training
+    abstract class GameAI
     {
-        public void Learn()
+        public void TakeTurn()
         {
-            Enter();
-            Train();
-            FinalFight();
-            BecomeAMaster();
+            CollectResources();
+            BuildStructures();
+            BuildUnits();
+            Attack();
+            SendScouts();
+            SendWarriors();
         }
-        public abstract void Enter();
-        public abstract void Train();
-        public virtual void FinalFight()
+        public virtual void CollectResources()
         {
-            Console.WriteLine("Fighting with the master");
+            Console.WriteLine("You are collecting resources");
         }
-        public abstract void BecomeAMaster();
+        public abstract void BuildStructures();
+        public abstract void BuildUnits();
+        public virtual void Attack()
+        {
+            Console.WriteLine("You are attacking player");
+        }
+        public abstract void SendScouts();
+        public abstract void SendWarriors();
+        
     }
 
     //concrete class
-    class WarriorTraining : Training
+    class OrcsAI : GameAI
     {
-        public override void Enter()
+        public override void BuildStructures()
         {
-            Console.WriteLine("You enter the training field as a young soldier");
+            Console.WriteLine("Orcs are building orcs camps");
         }
 
-        public override void Train()
+        public override void BuildUnits()
         {
-            Console.WriteLine("The great warrior teaching you how to use sword");
-            Console.WriteLine("You are teaching how to patrol city");
+            Console.WriteLine("Orcs are building orc's soldiers");
         }
 
-        public override void BecomeAMaster()
+        public override void SendScouts()
         {
-            Console.WriteLine("You become a great swordmaster");
+            Console.WriteLine("Orcs send goblin scouts");
+        }
+
+        public override void SendWarriors()
+        {
+            Console.WriteLine("Orcs send orc's warriors");
         }
     }
     
     //concrete class
-    class MageTraining : Training
+    class MonstersAI : GameAI
     {
-        public override void Enter()
+        public override void CollectResources ()
         {
-            Console.WriteLine("You enter the mage colleague");
+            Console.WriteLine("Monsters collecting corpses as resources");
         }
 
-        public override void Train()
+        public override void BuildStructures()
         {
-            Console.WriteLine("You choose the way of magic you will learn");
-            Console.WriteLine("You are training with wizard and learning magic spells");
+            Console.WriteLine("Monsters are building meat camps");
         }
 
-        public override void FinalFight()
+        public override void BuildUnits()
         {
-            Console.WriteLine("The duel with the other magicians of various schools");
+            Console.WriteLine("Monsters are building creatures of doom");
         }
 
-        public override void BecomeAMaster()
+        public override void SendScouts()
         {
-            Console.WriteLine("You become a wizard");
+            Console.WriteLine("Monsters send hounds of death");
         }
+
+        public override void SendWarriors()
+        {
+            Console.WriteLine("Monsters send big meat ogre");
+        }
+
     }
 }
